@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Register - {{ event.title }}{% endblock %}
+{% block content %}
+<h3>Register for "{{ event.title }}"</h3>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input name="name" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input name="email" type="email" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Phone</label>
+    <input name="phone" class="form-control">
+  </div>
+  <button class="btn btn-success" type="submit">Submit</button>
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
