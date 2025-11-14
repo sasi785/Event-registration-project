@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Home - Event Portal{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h2>Upcoming Events</h2>
+    {% for e in events %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ e.title }}</h5>
+          <p class="card-text">{{ e.description }}</p>
+          <p class="card-text"><small class="text-muted">Date: {{ e.date.strftime('%Y-%m-%d %H:%M') }}</small></p>
+          <a href="{{ url_for('register', event_id=e.id) }}" class="btn btn-primary">Register</a>
+        </div>
+      </div>
+    {% else %}
+      <p>No events available.</p>
+    {% endfor %}
+  </div>
+  <div class="col-md-4">
+    <h4>Quick Lookup</h4>
+    <form method="get" action="{{ url_for('my_regs') }}">
+      <div class="mb-2">
+        <input class="form-control" name="email" placeholder="Enter your email to view registrations">
+      </div>
+      <button class="btn btn-secondary">Search</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
