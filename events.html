@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Events - Event Portal{% endblock %}
+{% block content %}
+<h2>All Events</h2>
+<table class="table">
+  <thead><tr><th>Title</th><th>Date</th><th>Capacity</th><th></th></tr></thead>
+  <tbody>
+    {% for e in events %}
+      <tr>
+        <td>{{ e.title }}</td>
+        <td>{{ e.date.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ e.capacity or 'Unlimited' }}</td>
+        <td><a href="{{ url_for('register', event_id=e.id) }}" class="btn btn-sm btn-primary">Register</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
