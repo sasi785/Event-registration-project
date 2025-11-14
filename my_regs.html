@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}My Registrations{% endblock %}
+{% block content %}
+<h3>My Registrations</h3>
+<form class="mb-3" method="get" action="{{ url_for('my_regs') }}">
+  <div class="input-group mb-2">
+    <input name="email" value="{{ email }}" class="form-control" placeholder="Enter email">
+    <button class="btn btn-primary">Lookup</button>
+  </div>
+</form>
+{% if regs %}
+  <ul class="list-group">
+    {% for r in regs %}
+      <li class="list-group-item">
+        <strong>{{ r.event.title }}</strong> — {{ r.status }} <br>
+        <small>{{ r.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No registrations found.</p>
+{% endif %}
+{% endblock %}
