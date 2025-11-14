@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between">
+  <h3>Admin Dashboard</h3>
+  <div>
+    <a href="{{ url_for('admin_logout') }}" class="btn btn-sm btn-outline-secondary">Logout</a>
+  </div>
+</div>
+<p>Pending registrations: <strong>{{ pending_count }}</strong></p>
+<h5>Events</h5>
+<table class="table">
+  <thead><tr><th>Title</th><th>Date</th><th>Capacity</th><th>Participants</th><th></th></tr></thead>
+  <tbody>
+    {% for e in events %}
+      <tr>
+        <td>{{ e.title }}</td>
+        <td>{{ e.date.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ e.capacity or 'Unlimited' }}</td>
+        <td>{{ e.registrations|length }}</td>
+        <td><a class="btn btn-sm btn-primary" href="{{ url_for('participants', event_id=e.id) }}">View</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
