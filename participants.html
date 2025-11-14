@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Participants - {{ event.title }}{% endblock %}
+{% block content %}
+<h4>Participants for "{{ event.title }}"</h4>
+<a href="{{ url_for('admin_dashboard') }}" class="btn btn-sm btn-secondary mb-2">Back</a>
+<table class="table">
+  <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Action</th></tr></thead>
+  <tbody>
+    {% for r in regs %}
+      <tr>
+        <td>{{ r.name }}</td>
+        <td>{{ r.email }}</td>
+        <td>{{ r.phone or '-' }}</td>
+        <td>{{ r.status }}</td>
+        <td>
+          {% if r.status == 'Pending' %}
+            <form method="post" action="{{ url_for('update_registration', reg_id=r.id) }}" style="display:inline">
+              <input type="hidden" name="action" value="approve">
+              <button class="btn btn-sm btn-success" type="submit">Approve</button>
+            </form>
+            <form method="post" action="{{ url_for('update_registration', reg_id=r.id) }}" style="display:inline">
+              <input type="hidden" name="action" value="reject">
+              <button class="btn btn-sm btn-danger" type="submit">Reject</button>
+            </form>
+          {% else %}
+            <span class="text-muted">No actions</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
